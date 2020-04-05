@@ -15,7 +15,7 @@ height = 48
 initial_state = {
         "ID": "id_player01",
         "name": "char1",
-        "position": (0, 0, 0),
+        "position": [0, 0, 0],
         "health": 100,
         "mana": 100,
         "stamina": 100}
