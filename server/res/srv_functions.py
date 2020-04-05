@@ -1,15 +1,25 @@
 import argparse
 import socket
 import time
+from server.res.srv_treatments import move
 
 
 def get_answer(request):
     time.sleep(0.0)
     str_request = request.decode()
     print("Received:", str_request)
-    answer = str_request
+    answer = treat_answer(str_request)
     print("Sending:", answer)
-    return str.encode(answer)
+    return str.encode(str(answer))
+
+
+def treat_answer(request):
+    answer = eval(request)
+    # do the treatment here
+    new_position = answer["position"]
+    new_position = move((0, 0, 0), new_position)
+    answer["position"] = new_position
+    return answer
 
 
 def parse_command_line(description):
