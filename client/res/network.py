@@ -14,7 +14,6 @@ class Network:
     def connect(self):
         try:
             self.client.connect(self.addr)
-            self.client.send(b"Connected!")
             return self.client.recv(2048).decode()
         except Exception as error:
             print(f"Error while connecting to {self.addr}")

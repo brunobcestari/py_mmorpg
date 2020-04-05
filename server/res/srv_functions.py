@@ -36,7 +36,7 @@ def listening_clients(listener):
     while True:
         sock, address = listener.accept()
         print(f'Accepted connection from {address}')
-        #sock.send(b"Connected!")
+        sock.send(b"Server: Connected!")
         handle_conversation(sock, address)
 
 
