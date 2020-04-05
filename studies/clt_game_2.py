@@ -1,5 +1,5 @@
 import pygame
-from client.res.network import Network
+from studies.network import Network
 
 width = 500
 height = 500

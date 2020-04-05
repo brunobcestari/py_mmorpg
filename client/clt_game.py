@@ -1,42 +1,34 @@
 import pygame
 from client.res.network import Network
 from client.res.player import Player
-
-import pygame
-import os
-import pickle
-
 pygame.init()
 running = True
 
 screen = pygame.display.set_mode((500, 500))
 clock = pygame.time.Clock()
 
-initial_state = {
-        "ID": "id_player01",
-        "name": "character_name",
-        "position": (0, 0, 0),
-        "health": 100,
-        "mana": 100,
-        "stamina": 100}
-player = Player(initial_state)
-
-x = player.pos_x
-y = player.pos_y
-z = player.pos_z
-
 dx = 40
 dy = 40
 width = 48
 height = 48
 
+initial_state = {
+        "ID": "id_player01",
+        "name": "char1",
+        "position": (0, 0, 0),
+        "health": 100,
+        "mana": 100,
+        "stamina": 100}
+player = Player(initial_state)
+x = player.pos_x
+y = player.pos_y
+z = player.pos_z
+
 face_orientation = 'south'  # S, N, W, E
-char_name = 'char3'
-local_path = os.getcwd()
-walk_north = [pygame.image.load(local_path + f'/sprites/{char_name}/north_{n}.png') for n in range(3)]
-walk_south = [pygame.image.load(local_path + f'/sprites/{char_name}/south_{n}.png') for n in range(3)]
-walk_west = [pygame.image.load(local_path + f'/sprites/{char_name}/west_{n}.png') for n in range(3)]
-walk_east = [pygame.image.load(local_path + f'/sprites/{char_name}/east_{n}.png') for n in range(3)]
+walk_north = player.walk_north
+walk_south = player.walk_south
+walk_west = player.walk_west
+walk_east = player.walk_east
 
 len_animation = len(walk_north)
 
@@ -123,7 +115,7 @@ while running:
     else:
         i += 1
 
-    player.update_position((x,y,z))
+    player.update_position((x, y, z))
 
     screen.blit(vars()[f'walk_{face_orientation}'][i // param_division], (player.pos_x, player.pos_y))
     pygame.display.flip()

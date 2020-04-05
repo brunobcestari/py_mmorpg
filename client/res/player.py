@@ -19,6 +19,13 @@ class Player:
         self.mana = state["mana"]
         self.stamina = state["stamina"]
 
+        # load sprites:
+        local_path = os.getcwd()
+        self.walk_north = [pygame.image.load(local_path + f'/sprites/{self.name}/north_{n}.png') for n in range(3)]
+        self.walk_south = [pygame.image.load(local_path + f'/sprites/{self.name}/south_{n}.png') for n in range(3)]
+        self.walk_west = [pygame.image.load(local_path + f'/sprites/{self.name}/west_{n}.png') for n in range(3)]
+        self.walk_east = [pygame.image.load(local_path + f'/sprites/{self.name}/east_{n}.png') for n in range(3)]
+
     def update_position(self, new_position):
         pos = eval(self.send_pos(new_position))
         self.pos_x = pos["position"][0]
@@ -29,4 +36,3 @@ class Player:
         position = {"position": [pos[0], pos[1], pos[2]]}
         position = str(position)
         return self.connection.send(position)
-
