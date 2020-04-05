@@ -3,13 +3,16 @@ import socket
 
 class Network:
 
-    def __init__(self, server='127.0.0.1', port=5556):
+    def __init__(self, server='127.0.0.1', port=1060):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server = server
         self.port = port
         self.addr = (self.server, self.port)
-        self.id = self.connect()
-        print(self.id)
+        self.pos = self.connect()
+
+
+    def getPos(self):
+        return self.pos
 
     def connect(self):
         try:
@@ -26,8 +29,3 @@ class Network:
         except socket.error as error:
             print(error)
 
-
-if __name__ == '__main__':
-    n = Network()
-    print(n.send("Hello"))
-    print(n.send("Working!!!"))
