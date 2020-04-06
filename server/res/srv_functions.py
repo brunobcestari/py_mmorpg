@@ -1,7 +1,7 @@
 import argparse
 import socket
 import time
-from server.res.srv_treatments import move
+from server.res.srv_treatments import treat_answer
 
 
 def get_answer(request, identifier):
@@ -11,24 +11,6 @@ def get_answer(request, identifier):
     answer = treat_answer(str_request, identifier)
     print("Sending:", answer)
     return str.encode(str(answer))
-
-
-def treat_answer(request, identifier):
-    answer = eval(request)
-    # do the treatment here
-    with open(f'{identifier}.json', 'r') as file:
-        state = eval(file.read())
-        old_position = state["position"]
-        new_position = answer["position"]
-        new_position = move(old_position, new_position)
-        answer["position"] = new_position
-        state.update({"position": new_position})
-    file.close()
-    print(state)
-    with open(f'{identifier}.json', 'w') as file:
-        file.write(str(state))
-    file.close()
-    return answer
 
 
 def parse_command_line(description):
