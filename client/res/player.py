@@ -7,17 +7,17 @@ dx = 40
 
 
 class Player:
-    def __init__(self, state):
-        self.connection = Network()
-        self.state = state
-        self.id = state["ID"]
-        self.name = state["name"]
-        self.pos_x = state["position"][0]
-        self.pos_y = state["position"][1]
-        self.pos_z = state["position"][2]
-        self.health = state["health"]
-        self.mana = state["mana"]
-        self.stamina = state["stamina"]
+    def __init__(self, identifier):
+        self.connection = Network(identifier)
+        self.state = eval(self.connection.state)
+        self.id = self.state["ID"]
+        self.name = self.state["name"]
+        self.pos_x = self.state["position"][0]
+        self.pos_y = self.state["position"][1]
+        self.pos_z = self.state["position"][2]
+        self.health = self.state["health"]
+        self.mana = self.state["mana"]
+        self.stamina = self.state["stamina"]
 
         # load sprites:
         local_path = os.getcwd()
@@ -36,3 +36,14 @@ class Player:
         position = {"position": [pos[0], pos[1], pos[2]]}
         position = str(position)
         return self.connection.send(position)
+
+    def move(self, direction):
+        if direction == 'up':
+            self.pos_y -= 1
+        elif direction == 'down':
+            self.pos_y += 1
+        elif direction == 'right':
+            self.pos_x += 1
+        elif direction == 'left':
+            self.pos_x -= 1
+
