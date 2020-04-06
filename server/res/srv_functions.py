@@ -4,21 +4,30 @@ import time
 from server.res.srv_treatments import move
 
 
-def get_answer(request):
+def get_answer(request, identifier):
     time.sleep(0.0)
     str_request = request.decode()
     print("Received:", str_request)
-    answer = treat_answer(str_request)
+    answer = treat_answer(str_request, identifier)
     print("Sending:", answer)
     return str.encode(str(answer))
 
 
-def treat_answer(request):
+def treat_answer(request, identifier):
     answer = eval(request)
     # do the treatment here
-    new_position = answer["position"]
-    new_position = move(new_position)
-    answer["position"] = new_position
+    with open(f'{identifier}.json', 'r') as file:
+        state = eval(file.read())
+        old_position = state["position"]
+        new_position = answer["position"]
+        new_position = move(old_position, new_position)
+        answer["position"] = new_position
+        state.update({"position": new_position})
+    file.close()
+    print(state)
+    with open(f'{identifier}.json', 'w') as file:
+        file.write(str(state))
+    file.close()
     return answer
 
 
@@ -49,22 +58,23 @@ def listening_clients(listener):
         identifier = sock.recv(2048).decode()
         state = get_character_state(identifier)
         sock.send(str.encode(state))
-        handle_conversation(sock, address)
+        handle_conversation(sock, address, identifier)
 
 
 def get_character_state(identifier):
-    with open(f'{identifier}.json') as file:
+    with open(f'{identifier}.json', 'r') as file:
         state = file.read()
+        file.close()
         return state
 
 
-def handle_conversation(sock, address):
+def handle_conversation(sock, address, identifier):
     reply = ""
     connected = True
     while connected:
         try:
             while True:
-                handle_request(sock)
+                handle_request(sock, identifier)
 
         except EOFError:
             print(f'Client socket to {address} has closed')
@@ -76,9 +86,9 @@ def handle_conversation(sock, address):
     sock.close()
 
 
-def handle_request(sock):
+def handle_request(sock, identifier):
     request = receive(sock)
-    answer = get_answer(request)
+    answer = get_answer(request, identifier)
     sock.sendall(answer)
 
 
