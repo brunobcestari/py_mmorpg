@@ -9,7 +9,6 @@ def treat_answer(request, identifier):
         answer["position"] = new_position
         state.update({"position": new_position})
     file.close()
-    print(state)
     with open(f'{identifier}.json', 'w') as file:
         file.write(str(state))
     file.close()
