@@ -11,7 +11,7 @@ dy = 40
 width = 48
 height = 48
 
-player = Player('char1')
+player = Player('char2')
 x = player.pos_x
 y = player.pos_y
 z = player.pos_z
