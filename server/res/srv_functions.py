@@ -17,7 +17,7 @@ def treat_answer(request):
     answer = eval(request)
     # do the treatment here
     new_position = answer["position"]
-    new_position = move((0, 0, 0), new_position)
+    new_position = move(new_position)
     answer["position"] = new_position
     return answer
 
@@ -46,8 +46,16 @@ def listening_clients(listener):
     while True:
         sock, address = listener.accept()
         print(f'Accepted connection from {address}')
-        sock.send(b"Server: Connected!")
+        identifier = sock.recv(2048).decode()
+        state = get_character_state(identifier)
+        sock.send(str.encode(state))
         handle_conversation(sock, address)
+
+
+def get_character_state(identifier):
+    with open(f'{identifier}.json') as file:
+        state = file.read()
+        return state
 
 
 def handle_conversation(sock, address):

@@ -12,14 +12,7 @@ dy = 40
 width = 48
 height = 48
 
-initial_state = {
-        "ID": "id_player01",
-        "name": "char1",
-        "position": [0, 0, 0],
-        "health": 100,
-        "mana": 100,
-        "stamina": 100}
-player = Player(initial_state)
+player = Player('char1')
 x = player.pos_x
 y = player.pos_y
 z = player.pos_z
@@ -31,6 +24,13 @@ walk_west = player.walk_west
 walk_east = player.walk_east
 
 len_animation = len(walk_north)
+
+keys = {
+    pygame.K_w: player.move('up'),
+    pygame.K_s: player.move('down'),
+    pygame.K_d: player.move('right'),
+    pygame.K_a: player.move('left')
+}
 
 keys_down = {
     pygame.K_w: False,

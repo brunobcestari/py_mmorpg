@@ -1,5 +1,9 @@
-def move(old_position, new_position):
+def move(new_position):
     # check if the new position is valid
+
+
+
+    old_position = ""
 
     if not _occupied_position(new_position):
         position = new_position
