@@ -115,7 +115,6 @@ while running:
         i += 1
 
     player.update_position((x, y, z))
-
     screen.blit(vars()[f'walk_{face_orientation}'][i // param_division], (player.pos_x, player.pos_y))
     pygame.display.flip()
 
