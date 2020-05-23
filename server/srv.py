@@ -1,4 +1,4 @@
-from server.res.srv_functions import *
+from res.srv_functions import *
 import argparse
 
 host = '127.0.0.1'

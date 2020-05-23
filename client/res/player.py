@@ -1,5 +1,5 @@
 import pygame
-from client.res.network import Network
+from res.network import Network
 import os
 
 dy = 40

@@ -1,6 +1,6 @@
 import socket
 import time
-from server.res.srv_treatments import treat_answer
+from res.srv_treatments import treat_answer
 from _thread import start_new_thread
 
 
