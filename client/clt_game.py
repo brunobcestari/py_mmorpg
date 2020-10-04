@@ -1,5 +1,5 @@
 import pygame
-from res.player import Player
+from client.res.player import Player
 pygame.init()
 running = True
 
