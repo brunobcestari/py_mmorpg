@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    container_name: 'mongo'
+    environment:
+      - MONGO_INITDB_DATABASE=mmorpg_db
+    volumes:
+      - ./mongo-volume:/data/db
+    ports:
+      - "27017:27017"
+    network_mode: "host"
+
+  server:
+    #image: 'mmorpg_server'
+    build: .
+    container_name: 'mmorpg_server'
+    ports:
+      - "1060:1060"
+    network_mode: "host"
+    depends_on:
+      - mongo

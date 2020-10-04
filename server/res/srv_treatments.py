@@ -1,18 +1,12 @@
-def treat_answer(request, identifier):
+def treat_answer(request, actual_state):
     answer = eval(request)
     # do the treatment here
-    with open(f'{identifier}.json', 'r') as file:
-        state = eval(file.read())
-        old_position = state["position"]
-        new_position = answer["position"]
-        new_position = move(old_position, new_position)
-        answer["position"] = new_position
-        state.update({"position": new_position})
-    file.close()
-    with open(f'{identifier}.json', 'w') as file:
-        file.write(str(state))
-    file.close()
-    return answer
+    old_position = actual_state["position"]
+    new_position = answer["position"]
+    new_position = move(old_position, new_position)
+    answer["position"] = new_position
+    actual_state.update({"position": new_position})
+    return actual_state
 
 
 def move(old_position, new_position):
