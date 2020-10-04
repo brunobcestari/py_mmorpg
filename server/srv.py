@@ -1,7 +1,7 @@
 from res.srv_functions import *
 import argparse
 
-host = '127.0.0.1'
+host = '0.0.0.0'
 port = 1060
 max_clients_allowed = 2
 

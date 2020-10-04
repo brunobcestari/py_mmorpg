@@ -1,6 +1,7 @@
 import pygame
-from res.network import Network
+from client.res.network import Network
 import os
+from bson import ObjectId
 
 dy = 40
 dx = 40
