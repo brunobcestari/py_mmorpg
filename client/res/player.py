@@ -1,5 +1,5 @@
 import pygame
-from client.res.network import Network
+from .network import Network
 import os
 from bson import ObjectId
 

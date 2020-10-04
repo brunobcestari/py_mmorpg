@@ -6,7 +6,7 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=mmorpg_db
     volumes:
-      - ./mongo-volume:/data/db
+      - /var/mongo-volume:/data/db
     ports:
       - "27017:27017"
     network_mode: "host"
